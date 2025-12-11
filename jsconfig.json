@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "locale": "es",
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}

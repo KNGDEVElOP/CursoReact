@@ -1,17 +1,23 @@
 import PropTypes from "prop-types";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const initialDataForm={
     id:0,
     name:'',
     description:'',
-    price:''
+    price:0
 }
 
-export const ProductForm=({handlerAdd})=>{
+export const ProductForm=({handlerAdd,productSelected})=>{
 
     const [form,setForm]=useState(initialDataForm);
     const { id,name,description,price } = form;
+
+    useEffect(()=>{
+        if(productSelected){
+            setForm(productSelected);
+        }
+    },[productSelected]);
 
     return <form onSubmit={event => {
         console.log(form);
@@ -47,7 +53,7 @@ export const ProductForm=({handlerAdd})=>{
             className="form-control my-3 w-75"
             name="price"
             value={price}
-            onChange={(event) => setForm({...form,price:event.target.value})}/>
+            onChange={(event) => setForm({...form,price:Number(event.target.value)})}/>
 
         </div>
         <div>
@@ -58,4 +64,8 @@ export const ProductForm=({handlerAdd})=>{
         </div>
 
     </form>
+}
+ProductForm.propTypes={
+    handlerAdd:PropTypes.func.isRequired,
+    productSelected:PropTypes.object.isRequired,
 }
